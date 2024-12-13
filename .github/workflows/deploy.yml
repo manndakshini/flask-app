@@ -24,8 +24,8 @@ jobs:
       - name: Build and push Docker image to ECR
         run: |
           docker build -t flask-app .
-          docker tag flask-app:latest 954976330132.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/flask-app:latest
-          docker push 954976330132.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/flask-app:latest
+          docker tag flask-repo-191231:latest 954976330132.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/flask-repo-191231:latest
+          docker push 954976330132.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/flask-repo-191231:latest
 
       - name: Deploy to ECS
         env:
@@ -33,6 +33,6 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
         run: |
-          aws ecs update-service --cluster flask-cluster \
-            --service flask-service \
+          aws ecs update-service --cluster flask-cluster-191231 \
+            --service flask-service-191231 \
             --force-new-deployment --region $AWS_REGION
